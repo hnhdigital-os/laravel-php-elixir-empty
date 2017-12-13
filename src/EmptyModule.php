@@ -19,14 +19,16 @@ class EmptyModule extends AbstractModule
      */
     public static function verify($index, $clear_path)
     {
-        if (!($scan_path = Elixir::checkPath($clear_path))) {
+        list($scan_path, $scan_path_options) = Elixir::parseOptions($clear_path);
+
+        if (!(Elixir::checkPath($scan_path))) {
             Elixir::console()->error(sprintf('Path \'%s\' does not exist.', $clear_path));
 
             return false;
         }
 
         // Ensure that this folder is contained so it doesn't remove the project.
-        if (stripos($scan_path, public_path()) === false || $scan_path == public_path()) {
+        if (!isset($scan_path_options['force']) && (stripos($scan_path, public_path()) === false || $scan_path == public_path())) {
             Elixir::console()->error(sprintf('Clearing files from \'%s\' is unwise.', $scan_path));
 
             return false;
