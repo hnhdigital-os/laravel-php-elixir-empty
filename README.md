@@ -19,3 +19,5 @@ empty:
     - PATH_PUBLIC_ASSETS
     - PATH_PUBLIC_BUILD
 ```
+
+This module automatically stpos clearing of files/folders that are within the the public path. You can force delete by prepending `?force=1`.
